@@ -156,7 +156,7 @@ describe('User Routes', () => {
     });
 
     test('PUT /profile-edit - edit profile', async () => {
-        const imagePath=path.join('uploads',"profile-68a5ba45f7fe696a167ea683-1755691592484.jpeg")
+        const imagePath=path.join('uploads',"profile-68a5c63557c0265f92a201e5-1755694648050.jpeg")
         const res = await request(app)
             .put('/user/profile-edit')
             .set('Authorization', `Bearer ${userToken}`)
@@ -189,7 +189,7 @@ describe('User Routes', () => {
         const res = await request(app)
             .put('/user/user-upload-image')
             .set('Authorization', `Bearer ${userToken}`)
-            .attach('profileImage', path.join('uploads', 'profile-68a5ba45f7fe696a167ea683-1755691592484.jpeg')); // use absolute path
+            .attach('profileImage', path.join('uploads', 'profile-68a5c63557c0265f92a201e5-1755694648050.jpeg')); // use absolute path
         expect(res.statusCode).toBe(200);
     });
 
