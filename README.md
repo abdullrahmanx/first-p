@@ -1,4 +1,4 @@
-# YLabena Project
+# first-project
 
 ## Overview
 This project is a Node.js & Express-based API for managing drinks and users, with real-time communication using Socket.IO. It includes user authentication, role-based access, and CRUD operations for drinks.
