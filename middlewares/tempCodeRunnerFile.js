@@ -1,0 +1,1 @@
+[e.path, e.message]
