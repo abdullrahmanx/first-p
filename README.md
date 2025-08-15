@@ -63,22 +63,22 @@ project/
 
 ## Setup
 
-1. Clone the repository:
+ Clone the repository:
 ```bash
 git clone <your-repo-url>
 cd <your-project-folder>
 npm install
 
-3- Create a .env file with your environment variables:
+ Create a .env file with your environment variables:
 PORT=3000
 MONGO_URI=<your_mongodb_uri>
 JWT_SECRET=<your_jwt_secret>
 
 
-4- Run the project:
+ Run the project:
 node oy.js
 
--5 Open index.html in browser to test chat.
+ Open index.html in browser to test chat.
 
 Notes
 
