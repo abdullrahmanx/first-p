@@ -76,9 +76,9 @@ JWT_SECRET=<your_jwt_secret>
 
 
  Run the project:
-node oy.js
+   node oy.js
 
- Open index.html in browser to test chat.
+  Open index.html in browser to test chat.
 
 Notes
 
