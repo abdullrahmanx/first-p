@@ -47,15 +47,25 @@ This project is a Node.js & Express-based API for managing drinks and users, wit
 ## Folder Structure
 project/
 │
+
 ├─ MongoModel/ # Mongoose models for users & drinks
+
 ├─ Routes/ # API route handlers
+
 ├─ Controllers/ # Controllers for API logic
+
 ├─ utils/ # Error classes, middleware, etc.
+
 ├─ uploads/ # Uploaded files (images)
+
 ├─ client.js # Front-end JS for chat
+
 ├─ index.html # Simple chat client
+
 ├─ package.json
+
 ├─ .env # Environment variables
+
 └─ README.md
 
 
