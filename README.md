@@ -12,7 +12,7 @@ This project is a Node.js & Express-based API for managing drinks and users, wit
 
 ## Features
 
-<<<<<<< HEAD
+
 ### Users
 - Signup and login with JWT authentication
 - Edit profile, change password, upload profile image
@@ -83,7 +83,7 @@ This project is a Node.js & Express-based API for managing drinks and users, wit
 
 ---
 
-<<<<<<< HEAD
+
 ## Installation
 
 1. Clone the repo:
