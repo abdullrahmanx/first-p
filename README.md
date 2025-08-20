@@ -57,7 +57,7 @@ This project is a Node.js & Express-based API for managing drinks and users, It 
 - Auto-scroll chat to newest message
 - Highlight own messages
 - Token-based connection for authentication
->>>>>>> f852ef9 (Add README.md)
+
 
 ---
 
@@ -77,7 +77,6 @@ This project is a Node.js & Express-based API for managing drinks and users, It 
 - bcryptjs for password hashing
 - Joi validation
 - Socket.IO for real-time communication
->>>>>>> f852ef9 (Add README.md)
 - Multer for file uploads
 
 ---
@@ -136,4 +135,4 @@ Real-time chat works only if multiple users are connected.
 
 
 
->>>>>>> f852ef9 (Add README.md)
+
