@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-# Chat & Drinks Management App
+ First Project
 
-A Node.js application with JWT-authenticated users, drinks management, and real-time chat using Socket.io.
+A Node.js application with JWT-authenticated users, drinks management, and SIMPLE real-time chat using Socket.io.
 =======
-# YLabena Project
+
 
 ## Overview
 This project is a Node.js & Express-based API for managing drinks and users, with real-time communication using Socket.IO. It includes user authentication, role-based access, and CRUD operations for drinks.
