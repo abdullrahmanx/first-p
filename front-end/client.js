@@ -1,8 +1,6 @@
-// --- Helper to decode JWT ---
 function parseJwt(token) {
   const base64Url = token.split('.')[1];
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  return JSON.parse(atob(base64));
+  return JSON.parse(atob(base64Url));
 }
 
 let socket;
@@ -13,7 +11,7 @@ function connectSocket(token) {
   const user = parseJwt(token); // decode token to get name
   currentUserName = user.name;
 
-  socket = io("http://localhost:3000", { auth: { token } });
+  socket = io("http://localhost:4000", { auth: { token } });
 
   socket.on('connect', () => {
     console.log("Connected User:", user.name);
@@ -87,7 +85,7 @@ function login() {
     const password = document.getElementById('password').value;
 
     try {
-      const res = await fetch('http://localhost:3000/user/login', {
+      const res = await fetch('http://localhost:4000/user/login', {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -97,6 +95,7 @@ function login() {
 
       if(data.token) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('username', data.name);
         window.location.href = "index.html";
       } else {
         alert('Invalid login');

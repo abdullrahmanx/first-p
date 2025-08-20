@@ -6,8 +6,12 @@ const AppError = require('../utils/AppError');
 // ------------------- Get All Drinks -------------------
 const getallDrinks = async (req, res, next) => {
     try {
-        const drinks = await Drink.find();
-        res.json({
+        const page= Number(req.query.page)  ||1;
+        const limit= Number(req.query.limit) ||5;
+        const skip= (page-1) *limit
+
+        const drinks = await Drink.find().skip(skip).limit(limit);
+        res.status(200).json({
             status: "success",
             results: drinks.length,
             data: drinks
@@ -30,7 +34,7 @@ const getspecificDrink = async (req, res, next) => {
 
         res.status(200).json({
             status: "success",
-            data: drink
+            drink
         });
     } catch (err) {
         console.log(err);
@@ -49,7 +53,7 @@ const addDrink = async (req, res, next) => {
 
         res.status(201).json({
             status: "success",
-            data: newDrink
+            newDrink
         });
     } catch (err) {
         next(err);
@@ -75,7 +79,7 @@ const editDrink = async (req, res, next) => {
         editDrink.save();
         req.app.get("io").emit("editDrink", editDrink);
 
-        res.json({
+        res.status(200).json({
             status: "success",
             data: editDrink
         });
@@ -98,7 +102,7 @@ const deleteDrink = async (req, res, next) => {
         // Notify via Socket.io
         req.app.get("io").emit("deleteDrink", drink);
 
-        res.json({
+        res.status(200).json({
             status: "success",
             message: "Deleted Success"
         });

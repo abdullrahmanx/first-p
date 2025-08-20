@@ -5,15 +5,34 @@ const bcrypt = require('bcryptjs');
 const AppError = require('../utils/AppError');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const sharp=require('sharp')
+const path=require('path')
+const fs=require('fs')
 
 // ------------------- Get All Users -------------------
 const getAllUsers = async (req, res, next) => {
     try {
-        const users = await User.find();
-        res.json({
+        const limit= Number(req.query.limit) || 1
+        const page = Number(req.query.page) || 1
+        const skip =(page -1)*limit
+        let filter= {};
+        if(req.query.role) {
+            filter.role=req.query.role
+        }
+        const sort= {};
+        if(req.query.sort) {
+            const sortField=req.query.sort
+            if(sortField.startsWith('-')) {
+                sort[sortField.slice(1)]=-1
+            } else {
+                sort[sortField]=1
+            }
+        }
+        const users = await User.find(filter).skip(skip).limit(limit).sort(sort)
+        res.status(200).json({
             status: "success",
             results: users.length,
-            data: users
+            users
         });
     } catch (err) {
         next(err);
@@ -23,10 +42,13 @@ const getAllUsers = async (req, res, next) => {
 // ------------------- Sign Up -------------------
 const signUp = async (req, res, next) => {
     try {
-        const { name, email, password, role } = req.body;
+        const { name, email, password} = req.body;
 
         if (!email || !password) {
             return next(new AppError('Fail', 400, "Email and password are required"));
+        }
+        if(req.body.role) {
+            return next(new AppError('Error',400,"You cant choose your role"))
         }
 
         const existingUser = await User.findOne({ email });
@@ -34,7 +56,7 @@ const signUp = async (req, res, next) => {
             return next(new AppError('Fail', 400, "Email already existed"));
         }
 
-        const newUser = await User.create({ name, email, password, role });
+        const newUser = await User.create({ name, email, password, role: 'user' });
 
         res.status(201).json({
             status: "success",
@@ -67,13 +89,13 @@ const login = async (req, res, next) => {
         const token = jwt.sign(
             { id: user._id, role: user.role, name: user.name},
             process.env.JWT_SECRET,
-            { expiresIn: '10m' }
+            { expiresIn: '5h' }
         );
 
         res.status(201).json({
             status: "logged in",
             token,
-            User: user
+            user
         });
     } catch (err) {
         next(err);
@@ -87,9 +109,9 @@ const getProfile = async (req, res, next) => {
         if (!user) {
             return next(new AppError('Error', 404, 'User not found'));
         }
-        res.status(201).json({
+        res.status(200).json({
             status: 'success',
-            data: user
+            user
         });
     } catch (err) {
         next(err);
@@ -98,27 +120,35 @@ const getProfile = async (req, res, next) => {
 
 // ------------------- Edit Profile -------------------
 const editProfile = async (req, res, next) => {
-    try {
-        const updatedData = req.body;
-        if (req.file) updatedData.profileImage = req.file.path;
-
-        const editedProfile = await User.findByIdAndUpdate(
-            req.user.id,
-            { ...updatedData },
-            { new: true, runValidators: true }
-        );
-
-        if (!editedProfile) {
-            return next(new AppError('Error', 404, "User not found"));
-        }
-
-        res.status(200).json({
-            status: "success",
-            data: editedProfile
-        });
-    } catch (err) {
-        next(err);
+        // 3ayz a3ml upadte lel profile zye mail we el name bs lw 3ml update lel role hdelo error
+    if(req.body.role) {
+        return next(new AppError('Error',400,'You cant change ur role'))
     }
+    const updatedData= req.body
+    
+    if(req.file) {
+        const filename=`profile-${req.user.id}-${Date.now()}.jpeg`
+        const filepath= path.join('uploads',filename)
+        await sharp(req.file.path)
+         .resize(500,500)
+         .toFormat('jpeg')
+         .jpeg({quality: 90})
+         .toFile(filepath)
+        updatedData.profileImage= filepath 
+        fs.unlink(req.file.path, (err) => {
+            if(err) console.error('Error Deleting original file', err)
+        })
+    }
+    console.log("Current user ID:", req.user.id);
+    const updatedProfile= await User.findByIdAndUpdate(req.user.id,
+        {...updatedData},
+        {new: true, runValidators: true}
+    )
+    res.status(200).json({
+        status: 'Updated',
+        updatedProfile
+    })
+       
 };
 
 // ------------------- Change Password -------------------
@@ -143,7 +173,7 @@ const changePassword = async (req, res, next) => {
         user.password = newPassword;
         await user.save({ validateBeforeSave: false });
 
-        res.status(201).json({
+        res.status(200).json({
             status: "success",
             message: "Password changed successfully"
         });
@@ -166,7 +196,7 @@ const forgotPassword = async (req, res, next) => {
 
         const resetUrl = `${req.protocol}://${req.get('host')}/user/reset-password/${resetToken}`;
 
-        res.status(200).json({
+        res.status(201).json({
             status: "success",
             message: "Reset link generated",
             resetUrl
@@ -218,16 +248,25 @@ const uploadProfileImage = async (req, res, next) => {
         if (!req.file) {
             return next(new AppError('Error', 400, "No file uploaded"));
         }
-
+        const filename= `profile-${req.user.id}-${Date.now()}.jpeg`;
+        const filepath=path.join('uploads',filename)
+        await sharp(req.file.path)
+         .resize(500,500)
+         .toFormat('jpeg')
+         .jpeg({quality: 90})
+         .toFile(filepath)
         const user = await User.findByIdAndUpdate(
             req.user.id,
-            { profileImage: req.file.path },
+            { profileImage: filepath },
             { new: true, runValidators: true }
         );
 
         if (!user) {
             return next(new AppError('Error', 404, 'User not found'));
         }
+        fs.unlink(req.file.path, (err) => {
+            if (err) console.error('Error deleting original file:', err);
+        });
 
         res.status(200).json({
             status: "success",

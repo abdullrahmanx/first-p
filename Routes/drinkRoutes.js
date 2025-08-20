@@ -21,7 +21,7 @@ router.route('/')
 // /drinks/:id
 router.route('/:id')
     .get(controllers.getspecificDrink) // get specific drink
-    .put(validateDrink, verifyToken, authorizedRoles('admin', 'manager'), controllers.editDrink) // edit drink
+    .put( verifyToken, authorizedRoles('admin', 'manager'), controllers.editDrink) // edit drink
     .delete(verifyToken, authorizedRoles('admin'), controllers.deleteDrink); // delete drink
 
 module.exports = router;

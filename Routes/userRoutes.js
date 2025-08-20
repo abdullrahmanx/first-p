@@ -5,15 +5,18 @@ const router = express.Router();
 
 // Controllers
 const controllers = require('../controllers/userController');
-
 // Middlewares
 const verifyToken = require('../middlewares/verfiyToken'); // handles JWT verification
 const authorizedRoles = require('../middlewares/authorizedRoles'); // handles role-based access
-const upload = require('../middlewares/upload'); // handles file uploads
+const upload = require('../middlewares/uploadUsersImage'); // handles file uploads
+const loginLimit = require('../middlewares/LoginRateLimit');
+const {loginValdiator, signupValidator}=require('../middlewares/validateUsers')
+
+
 
 // ------------------- Public Routes -------------------
-router.post('/signup', controllers.signUp);
-router.post('/login', controllers.login);
+router.post('/signup', signupValidator,controllers.signUp);
+router.post('/login',loginLimit,loginValdiator,controllers.login);
 router.post('/forgotpassword', controllers.forgotPassword);
 router.put('/reset-password/:token', controllers.resetPassword);
 
