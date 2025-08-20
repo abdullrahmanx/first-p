@@ -59,7 +59,7 @@ project/
 ```bash
 
 git clone https://github.com/abdullrahmanx/first-p.git
-cd ylabena
+cd first-p
 npm install
 
 2. Create a .env file with your environment variables:
