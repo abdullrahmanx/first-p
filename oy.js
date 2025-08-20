@@ -23,7 +23,7 @@ mongoose.connect(process.env.URL)
   .catch(err => console.error("MongoDB connection error:", err));
 
 // ------------------- Middleware -------------------
-app.use(cors({ origin: "http://localhost:3000" })); // allow all origins for dev; change for production
+app.use(cors({ origin: "http://localhost:3000" })); // allow all origins for dev
 app.use(helmet()); 
 app.use(morgan('dev'))
 app.use(limitRequests)
@@ -73,7 +73,7 @@ io.on("connection", (socket) => {
 if(require.main===module) {
   const PORT= process.env.PORT|| 3000
   server.listen(PORT, () => {
-    console.log('Server running on 4000')
+    console.log('Server running on 3000')
   })
 }
 
