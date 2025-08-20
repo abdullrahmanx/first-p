@@ -1,16 +1,8 @@
- First Project
+# First Project
 
-A Node.js application with JWT-authenticated users, drinks management
-=======
-
-
-## Overview
-This project is a Node.js & Express-based API for managing drinks and users, It includes user authentication, role-based access, and CRUD operations for drinks.
-
----
+A Node.js & Express API with JWT-authenticated users, drinks management, and real-time chat using Socket.io.
 
 ## Features
-
 
 ### Users
 - Signup and login with JWT authentication
@@ -34,44 +26,9 @@ This project is a Node.js & Express-based API for managing drinks and users, It 
 - Highlight own messages
 - Token-based Socket.io connection
 - Session expiration handling
-=======
-### Users API
-- User registration (Sign Up)
-- User login with JWT token authentication
-- Profile management (view & edit profile)
-- Change password
-- Forgot & reset password
-- Profile image upload
-- Role-based authorization for specific routes
-
-### Drinks API
-- Get all drinks
-- Get a specific drink by ID
-- Add a new drink (real-time notification)
-- Edit a drink (real-time notification)
-- Delete a drink (real-time notification)
-
-### Real-time Communication
-- Chat messages between connected users
-- Messages display the sender’s name
-- Auto-scroll chat to newest message
-- Highlight own messages
-- Token-based connection for authentication
-
-
----
 
 ## Tech Stack
-<<<<<<< HEAD
-- Node.js, Express
-- MongoDB with Mongoose
-- JWT for authentication
-- bcrypt for password hashing
-- Socket.io for real-time communication
-- Joi for request validation
-=======
-- Node.js
-- Express.js
+- Node.js, Express.js
 - MongoDB + Mongoose
 - JWT authentication
 - bcryptjs for password hashing
@@ -79,24 +36,15 @@ This project is a Node.js & Express-based API for managing drinks and users, It 
 - Socket.IO for real-time communication
 - Multer for file uploads
 
----
-
-
-## Installation
-
-1. Clone the repo:
-```bash
-git clone https://github.com/abdullrahmanx/first-p.git
-cd first-p
-=======
 ## Folder Structure
+
 project/
-│
+
 ├─ MongoModel/ # Mongoose models for users & drinks
 ├─ Routes/ # API route handlers
 ├─ Controllers/ # Controllers for API logic
 ├─ utils/ # Error classes, middleware, etc.
-├─ uploads/ # Uploaded files (images)
+├─ uploads/ # Uploaded files (ignored in Git)
 ├─ client.js # Front-end JS for chat
 ├─ index.html # Simple chat client
 ├─ package.json
@@ -104,28 +52,26 @@ project/
 └─ README.md
 
 
----
 
 ## Setup
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
-cd <your-project-folder>
+
+git clone https://github.com/abdullrahmanx/first-p.git
+cd ylabena
 npm install
 
-3- Create a .env file with your environment variables:
-PORT=3000
-MONGO_URI=<your_mongodb_uri>
-JWT_SECRET=<your_jwt_secret>
+2. Create a .env file with your environment variables:
 
+   PORT=3000
+   MONGO_URI=<your_mongodb_uri>
+   JWT_SECRET=<your_jwt_secret>
+3. Run the project:
 
-4- Run the project:
-node oy.js
+    node oy.js
 
--5 Open index.html in browser to test chat.
-
-Notes
+Notes: 
 
 node_modules/, .env, and uploads/ are ignored in Git (.gitignore).
 
