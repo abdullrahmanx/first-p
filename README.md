@@ -39,14 +39,23 @@ You can view and test all API endpoints using Postman:
 project/
 
 ├─ MongoModel/ # Mongoose models for users & drinks
+
 ├─ Routes/ # API route handlers
+
 ├─ Controllers/ # Controllers for API logic
+
 ├─ utils/ # Error classes, middleware, etc.
+
 ├─ uploads/ # Uploaded files (ignored in Git)
+
 ├─ client.js # Front-end JS for chat
+
 ├─ index.html # Simple chat client
+
 ├─ package.json
+
 ├─ .env # Environment variables
+
 └─ README.md
 
 
