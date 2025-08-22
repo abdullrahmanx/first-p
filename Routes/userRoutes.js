@@ -23,7 +23,7 @@ router.put('/reset-password/:token', controllers.resetPassword);
 // ------------------- Protected Routes -------------------
 router.get('/', verifyToken, authorizedRoles('admin'), controllers.getAllUsers);
 router.get('/profile', verifyToken, controllers.getProfile);
-router.put('/profile-edit', verifyToken, upload.single('profileImage'), controllers.editProfile);
+router.put('/profile-edit', verifyToken, upload.single('profileImage'), controllers.updateProfile);
 router.put('/changepassword', verifyToken, controllers.changePassword);
 router.put('/user-upload-image', verifyToken, upload.single('profileImage'), controllers.uploadProfileImage);
 

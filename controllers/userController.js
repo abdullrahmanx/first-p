@@ -59,8 +59,8 @@ const signUp = async (req, res, next) => {
         const newUser = await User.create({ name, email, password, role: 'user' });
 
         res.status(201).json({
-            status: "success",
-            data: { user: newUser }
+            status: "Success",
+            name: newUser.name,
         });
     } catch (err) {
         next(err);
@@ -94,8 +94,7 @@ const login = async (req, res, next) => {
 
         res.status(201).json({
             status: "logged in",
-            token,
-            user
+            token
         });
     } catch (err) {
         next(err);
@@ -119,13 +118,11 @@ const getProfile = async (req, res, next) => {
 };
 
 // ------------------- Edit Profile -------------------
-const editProfile = async (req, res, next) => {
-        // 3ayz a3ml upadte lel profile zye mail we el name bs lw 3ml update lel role hdelo error
+const updateProfile = async (req, res, next) => {
     if(req.body.role) {
         return next(new AppError('Error',400,'You cant change ur role'))
     }
     const updatedData= req.body
-    
     if(req.file) {
         const filename=`profile-${req.user.id}-${Date.now()}.jpeg`
         const filepath= path.join('uploads',filename)
@@ -139,14 +136,13 @@ const editProfile = async (req, res, next) => {
             if(err) console.error('Error Deleting original file', err)
         })
     }
-    console.log("Current user ID:", req.user.id);
     const updatedProfile= await User.findByIdAndUpdate(req.user.id,
         {...updatedData},
         {new: true, runValidators: true}
     )
     res.status(200).json({
-        status: 'Updated',
-        updatedProfile
+        status: 'Profile Updated',
+        updatedData
     })
        
 };
@@ -271,7 +267,7 @@ const uploadProfileImage = async (req, res, next) => {
         res.status(200).json({
             status: "success",
             message: "Photo uploaded successfully",
-            data: user
+            
         });
     } catch (err) {
         next(err);
@@ -284,7 +280,7 @@ module.exports = {
     signUp,
     login,
     getProfile,
-    editProfile,
+    updateProfile,
     changePassword,
     forgotPassword,
     resetPassword,

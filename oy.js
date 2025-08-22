@@ -69,7 +69,7 @@ io.on("connection", (socket) => {
 });
 
 //------------------ Start Server -------------------
-// lw ana brun el file da connect el server
+
 if(require.main===module) {
   const PORT= process.env.PORT|| 3000
   server.listen(PORT, () => {
