@@ -19,13 +19,11 @@ A Node.js & Express API with JWT-authenticated users, drinks management, and rea
 - Input validation with Joi
 - Global error handling
 
-### Real-time Chat
-- Authenticated users can chat in real-time
-- Messages display sender's name correctly
-- Auto-scroll to newest messages
-- Highlight own messages
-- Token-based Socket.io connection
-- Session expiration handling
+## API Documentation
+
+You can view and test all API endpoints using Postman:
+
+[Postman Documentation] (https://documenter.getpostman.com/view/47108996/2sB3BKFojg)
 
 ## Tech Stack
 - Node.js, Express.js
