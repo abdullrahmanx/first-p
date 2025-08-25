@@ -11,7 +11,7 @@ const errorHandler = (err, req, res, next) => {
             Object.values(err.errors).map((err) => [err.path,err.message])
         );
         console.log(errors)
-        const appError = new AppError('Error', 401, errors);
+        const appError = new AppError('Error', 400, errors);
         return res.status(appError.statusCode).json({
             status: appError.status,
             message: appError.message,
