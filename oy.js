@@ -43,36 +43,13 @@ app.use('/user', userRoutes);
 // Global error handler
 app.use(errorHandler);
 
-// ------------------- HTTP + Socket.io -------------------
-const server = http.createServer(app);
-const io = new Server(server, { cors: { origin: "*" } });
-app.set("io", io);
 
-
-// ------------------- Socket.io Auth -------------------
-io.on("connection", (socket) => {
-  const token = socket.handshake.auth.token;
-  console.log("Client Connected:", socket.id);
-  socket.on("chatMessage", (msg) => {
-    try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    userName = decoded.name;
-    io.emit("chatMessage", { client: userName, message: msg.message });
-    } catch (err) {
-    console.log("Socket auth error:", err.message);
-    }
-  });
-
-  socket.on("disconnect", () => {
-    console.log("Client disconnected", socket.id);
-  });
-});
 
 //------------------ Start Server -------------------
 
 if(require.main===module) {
   const PORT= process.env.PORT|| 3000
-  server.listen(PORT, () => {
+  app.listen(PORT, () => {
     console.log('Server running on 3000')
   })
 }
