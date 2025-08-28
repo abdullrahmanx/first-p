@@ -48,9 +48,6 @@ const addDrink = async (req, res, next) => {
         const { name, price, inStock } = req.body;
         const newDrink = await Drink.create({ name, price, inStock });
 
-        // Notify via Socket.io
-        req.app.get("io").emit("drinkAdded", newDrink);
-
         res.status(201).json({
             status: "success",
             newDrink
@@ -75,9 +72,6 @@ const editDrink = async (req, res, next) => {
             return next(error);
         }
 
-        // Save changes and notify via Socket.io
-        editDrink.save();
-        req.app.get("io").emit("editDrink", editDrink);
 
         res.status(200).json({
             status: "success",
@@ -99,8 +93,6 @@ const deleteDrink = async (req, res, next) => {
             return next(error);
         }
 
-        // Notify via Socket.io
-        req.app.get("io").emit("deleteDrink", drink);
 
         res.status(200).json({
             status: "success",
