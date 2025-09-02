@@ -15,7 +15,6 @@ A Node.js & Express API with JWT-authenticated users, drinks management, and rea
 ### Drinks
 - Add, edit, delete drinks (admin only)
 - View all drinks or a specific drink
-- Real-time updates via Socket.io
 - Input validation with Joi
 - Global error handling
 
