@@ -1,6 +1,6 @@
 # First Project
 
-A Node.js & Express API with JWT-authenticated users, drinks management, and real-time chat using Socket.io.
+A Node.js & Express API with JWT-authenticated users and drinks management
 
 ## Features
 
@@ -30,7 +30,6 @@ You can view and test all API endpoints using Postman:
 - JWT authentication
 - bcryptjs for password hashing
 - Joi validation
-- Socket.IO for real-time communication
 - Multer for file uploads
 
 ## Folder Structure
@@ -83,7 +82,6 @@ node_modules/, .env, and uploads/ are ignored in Git (.gitignore).
 
 Make sure your MongoDB is running.
 
-Real-time chat works only if multiple users are connected.
 
 
 
